@@ -1,7 +1,7 @@
 export type FusionChartsBoolean = boolean | 1 | 0 | '1' | '0' | 'true' | 'false';
 export type FusionChartsDecimal = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
-export interface FusionChartsDatasetChart {
+export interface FusionChartsDatasourceChart {
   plotBorderThickness?: any;
   caption?: any;
   showAlternateHGridColor?: any;
@@ -254,10 +254,13 @@ export interface FusionChartsDatasetChart {
   showTooltipShadow?: FusionChartsBoolean;
 }
 
-export interface FusionChartsData {
+export interface FusionChartsDatasourceData {
   label: string;
   value: any;
+  color?: string;
+  displayValue?: string;
   /** Display Multiline Tooltip Text Template (`<br>` == `{br}`) */
+  tooltext?: string;
 
   // Vertical Lines --------------------------------------------------------------------
 
@@ -265,16 +268,37 @@ export interface FusionChartsData {
    * @see : https://www.fusioncharts.com/dev/chart-guide/chart-configurations/vertical-lines
    */
   vline?: FusionChartsBoolean;
-  tooltext?: string;
-  linePosition: number;
-  labelPosition: number;
-  labelVAlign: 'top' | 'middle' | 'bottom';
-  labelHAlign: 'left' | 'center' | 'right';
+  linePosition?: number;
+  labelPosition?: number;
+  labelVAlign?: 'top' | 'middle' | 'bottom';
+  labelHAlign?: 'left' | 'center' | 'right';
 }
 
-export interface FusionChartsDataset {
-  chart: FusionChartsDatasetChart & { [key: string]: any };
-  data?: (FusionChartsData & { [key: string]: any })[];
-  categories?: any;
-  dataset?: any;
+export interface FusionChartsDatasourceCategory {
+  category: (FusionChartsDatasourceData & { [key: string]: any })[];
+}
+
+export interface FusionChartsDatasourceDataset {
+  seriesname?: string;
+  plottooltext?: string;
+  renderas?: string;
+  showanchors?: FusionChartsBoolean;
+  showvalues?: FusionChartsBoolean;
+  data: (FusionChartsDatasourceData & { [key: string]: any })[];
+}
+
+export interface FusionChartsDatasourceDatasets {
+  dataset: FusionChartsDatasourceDataset[];
+}
+
+export interface FusionChartsDatasourceLinesets {
+  lineset: FusionChartsDatasourceDataset[];
+}
+
+export interface FusionChartsDatasource {
+  chart: FusionChartsDatasourceChart & { [key: string]: any };
+  data?: (FusionChartsDatasourceData & { [key: string]: any })[];
+  categories?: FusionChartsDatasourceCategory[];
+  dataset?: (FusionChartsDatasourceDatasets | FusionChartsDatasourceDataset)[];
+  lineset?: (FusionChartsDatasourceLinesets | FusionChartsDatasourceDataset)[];
 }

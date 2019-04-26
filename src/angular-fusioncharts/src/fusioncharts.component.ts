@@ -18,7 +18,7 @@ import { FusionChartsConstructor } from './fusioncharts.constructor';
 import FusionChartsEvent from '../interfaces/FusionChartsEvent';
 import FusionChartInstance from '../interfaces/FusionChartInstance';
 import EventsList from '../events/events';
-import { FusionChartsDataset } from 'angular-fusioncharts/interfaces/FusionChartsDataSet';
+import { FusionChartsDatasource } from '../interfaces/FusionChartsDataSource';
 @Component({
   selector: 'fusioncharts',
   template: `
@@ -33,7 +33,7 @@ class FusionChartsComponent
   chartObj: any;
 
   @Input() placeholder: string;
-  @Input() dataSource: FusionChartsDataset | any;
+  @Input() dataSource: FusionChartsDatasource | any;
   @Input() type: string;
   @Input() id: string;
   @Input() width: string;
@@ -236,7 +236,7 @@ class FusionChartsComponent
 
   containerId: string;
   private configObj: any;
-  private oldDataSource: FusionChartsDataset | any = this.dataSource;
+  private oldDataSource: FusionChartsDatasource | any = this.dataSource;
   private constructerParams = {
     type: true,
     id: true,
