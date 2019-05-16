@@ -30,10 +30,10 @@ export interface FusionChartsDatasourceChart {
   useroundedges?: any;
   use3DLighting?: any;
   showShadow?: any;
-  pieRadius?: any;
   numvisibleplot?: any;
   numVisiblePlot?: any;
   usePlotGradientColor?: any;
+  multicanvas?: FusionChartsBoolean;
 
   // Borders and Backgrounds --------------------------------------------------------------------
 
@@ -252,11 +252,30 @@ export interface FusionChartsDatasourceChart {
   toolTipSepChar?: string;
   /** Tooltip: Show/Hide Tooltip Shadow */
   showTooltipShadow?: FusionChartsBoolean;
+
+  // PIE/DONUTS attributes -------------------------------------------------------------------
+
+  /** Outer radius of the chart */
+  pieRadius?: number;
+  /** Inner radius of the chart */
+  doughnutRadius?: number;
+  /** Starting Angle : from 0 to 360 */
+  startingAngle?: number;
+  /** Radius for 3D Lighting */
+  radius3D?: number;
+  /** Enable the ability to sclice by clicking on chart */
+  enableSlicing?: FusionChartsBoolean;
+  /** The distance when slicing is enabled */
+  slicingDistance?: FusionChartsBoolean;
+  /** To enable the rotation with drag on chart */
+  enableRotation?: FusionChartsBoolean;
+  /** Enable to slice multiple part of the chart */
+  enableMultiSlicing?: FusionChartsBoolean;
 }
 
 export interface FusionChartsDatasourceData {
-  label: string;
-  value: any;
+  label?: string;
+  value?: any;
   color?: string;
   displayValue?: string;
   /** Display Multiline Tooltip Text Template (`<br>` == `{br}`) */
@@ -287,6 +306,46 @@ export interface FusionChartsDatasourceDataset {
   data: (FusionChartsDatasourceData & { [key: string]: any })[];
 }
 
+export interface FusionChartsDatasourcePlot {
+  value?: string;
+  type?: 'column' | 'line' | 'area' | 'smooth-area';
+  connectnulldata?: FusionChartsBoolean;
+}
+
+export interface FusionChartsDatasourceFormat {
+  prefix?: string;
+  suffix?: string;
+}
+
+export interface FusionChartsDatasourceYaxis {
+  plot?: FusionChartsDatasourcePlot | FusionChartsDatasourcePlot[];
+  format?: FusionChartsDatasourceFormat;
+  title?: string;
+  orientation?: 'left' | 'right';
+  type?: 'log';
+  base?: number;
+  min?: number;
+  max?: number;
+}
+
+export interface FusionChartsDatasourceExtensions {
+  customRangeSelector?: {
+    enabled?: false;
+  };
+  standardRangeSelector?: {
+    enabled?: false;
+  };
+}
+
+export interface FusionChartsDatasourceDatamarker {
+  value?: string;
+  time?: string;
+  timeformat?: string;
+  identifier?: string;
+  tooltext?: string;
+  seriesname?: string;
+}
+
 export interface FusionChartsDatasourceDatasets {
   dataset: FusionChartsDatasourceDataset[];
 }
@@ -299,6 +358,19 @@ export interface FusionChartsDatasource {
   chart: FusionChartsDatasourceChart & { [key: string]: any };
   data?: (FusionChartsDatasourceData & { [key: string]: any })[];
   categories?: FusionChartsDatasourceCategory[];
-  dataset?: (FusionChartsDatasourceDatasets | FusionChartsDatasourceDataset)[];
-  lineset?: (FusionChartsDatasourceLinesets | FusionChartsDatasourceDataset)[];
+  dataset?: (FusionChartsDatasourceDatasets & { [key: string]: any })
+  | (FusionChartsDatasourceDataset & { [key: string]: any })[];
+  lineset?: (FusionChartsDatasourceLinesets & { [key: string]: any })
+  | (FusionChartsDatasourceDataset & { [key: string]: any })[];
+  yaxis?: (FusionChartsDatasourceYaxis & { [key: string]: any })
+  | (FusionChartsDatasourceYaxis & { [key: string]: any })[];
+  extensions?: FusionChartsDatasourceExtensions & { [key: string]: any };
+  caption?: {
+    text?: string;
+  };
+  subcaption?: {
+    text?: string
+  };
+  series?: string;
+  datamarker?: FusionChartsDatasourceDatamarker[];
 }
