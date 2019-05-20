@@ -271,6 +271,11 @@ export interface FusionChartsDatasourceChart {
   enableRotation?: FusionChartsBoolean;
   /** Enable to slice multiple part of the chart */
   enableMultiSlicing?: FusionChartsBoolean;
+
+  // FusionTime attributes -----------------------------------------------------------------
+
+  /** Enable the navigator under the chart */
+  enableNavigator?: FusionChartsBoolean;
 }
 
 export interface FusionChartsDatasourceData {
